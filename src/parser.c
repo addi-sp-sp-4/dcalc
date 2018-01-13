@@ -138,6 +138,12 @@ parse_node *parse_expression(char* expression, parse_node *current)
 			}
 			buffer[j - 1] = 0;
 			current_char = expression[++i];
+
+            if(strcmp(buffer, "") == 0)
+            {
+                strncpy(buffer, "0", 2);
+                j = 1;
+            }
 		}
 		
 		if(current_node_type == NONE)
