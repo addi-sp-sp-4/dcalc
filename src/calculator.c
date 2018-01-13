@@ -33,13 +33,13 @@ void print_parse_nodes(parse_node *node, int indent_amount)
 char *calculate(char *expression)
 {
     
-	parse_node *filled = parse(expression, EXPRESSION);
+    parse_node *filled = parse(expression, EXPRESSION);
 
-	if(filled == NULL)
-	{
-		printf("Syntax Error\n");
+    if(filled == NULL)
+    {
+        printf("Syntax Error\n");
         return NULL;
-	}
+    }
     
 #ifndef DCALC_DEBUG 
     print_parse_nodes(filled, 0);  
@@ -53,27 +53,27 @@ char *calculate(char *expression)
 
 int main(int argc, char **argv)
 {
-	
-	char expression[BUFSIZ];
+    
+    char expression[BUFSIZ];
 
-	while(1)
-	{
-		printf("(dcalc)# ");
-		if(fgets(expression, BUFSIZ, stdin) == NULL) exit(0);
-		
-		expression[strlen(expression) - 1] = 0;
+    while(1)
+    {
+        printf("(dcalc)# ");
+        if(fgets(expression, BUFSIZ, stdin) == NULL) exit(0);
+        
+        expression[strlen(expression) - 1] = 0;
 
         char* i = expression;
-  	    char* j = expression;
-  	    while(*j != 0)
-  	    {
-    	    *i = *j++;
-    	    if(!isspace(*i)) i++;
-  	    }
-  	    *i = 0;	
-	
-		calculate(expression);
-	}
+        char* j = expression;
+        while(*j != 0)
+        {
+            *i = *j++;
+            if(!isspace(*i)) i++;
+        }
+        *i = 0; 
+    
+        calculate(expression);
+    }
 
 }
 
