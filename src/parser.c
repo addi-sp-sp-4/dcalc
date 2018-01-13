@@ -101,7 +101,6 @@ parse_node *parse_expression(char* expression, parse_node *current)
 
 		    }
         }
-
         expression_check:
 		encountered_parentheses = 0;
 		if(current_node_type == NONE && current_char == '(')
@@ -227,3 +226,4 @@ int indexof_cparr(char *haystack[], char *needle)
     }
     return -1;
 }
+
