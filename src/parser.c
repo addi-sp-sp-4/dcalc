@@ -148,7 +148,7 @@ parse_node *parse_expression(char* expression, parse_node *current)
         
         if(current_node_type == NONE)
         {
-            printf("Invalid expression: unexpected character\n")
+            printf("Invalid expression: unexpected character\n");
             return NULL;
         }
         buffer[j] = 0; /* terminate string */
