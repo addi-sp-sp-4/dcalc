@@ -30,10 +30,11 @@ parse_node *parse_expression(char* expression, parse_node *current)
 
     char current_char = expression[i];
     char buffer[BUFSIZ];
-    char operator[BUFSIZ];
+    static char operator[BUFSIZ];
     parse_t current_node_type;  
     parse_node *previous = NULL;
     
+     
     while(current_char != 0)
     {
         current_node_type = NONE;
@@ -147,14 +148,14 @@ parse_node *parse_expression(char* expression, parse_node *current)
         
         if(current_node_type == NONE)
         {
-            printf("NODE IS NONE\n");
+            printf("Invalid expression: unexpected character\n")
             return NULL;
         }
         buffer[j] = 0; /* terminate string */
         
         if(current_node_type == OPERAND && buffer[j-1] == '.')
         {
-            printf("LAST CHAR IS DOT\n");
+            printf("Invalid expression: Operand ending with dot. (.)\n");
             return NULL;    
         }
         current->children_count++;
@@ -185,7 +186,7 @@ parse_node *parse_expression(char* expression, parse_node *current)
     if(previous != NULL)
     if(previous->type == IMMEDIATE_MINUS || previous->type == OPERATOR)
     {
-        printf("%s at wrong place\n", parse_t_strings[previous->type]);
+        printf("Token of type `%s` at wrong place\n", parse_t_strings[previous->type]);
         return NULL;
     }
 

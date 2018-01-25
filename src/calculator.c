@@ -7,7 +7,6 @@
 #include "stack.h"
 #include "evaluator.h"
 
-#ifdef DCALC_DEBUG
 void print_parse_nodes(parse_node *node, int indent_amount)
 {
     
@@ -28,9 +27,9 @@ void print_parse_nodes(parse_node *node, int indent_amount)
         print_parse_nodes(&node->children[i], indent_amount + 1);
     } 
 }
-#endif
 
-char *calculate(char *expression)
+
+char *calculate(char *expression, int pnode)
 {
     
     parse_node *filled = parse(expression, EXPRESSION);
@@ -41,11 +40,9 @@ char *calculate(char *expression)
         return NULL;
     }
     
-#ifndef DCALC_DEBUG 
-    print_parse_nodes(filled, 0);  
-#endif
+    if(pnode) print_parse_nodes(filled, 0);  
 
-    printf("%s\n", evaluate_expression(filled)); 
+    else printf("%s\n", evaluate_expression(filled)); 
 
 
     return NULL;    
@@ -58,11 +55,12 @@ int main(int argc, char **argv)
 
     while(1)
     {
-        printf("(dcalc)# ");
+        printf("(calc)# ");
         if(fgets(expression, BUFSIZ, stdin) == NULL) exit(0);
         
         expression[strlen(expression) - 1] = 0;
-
+        
+        
         char* i = expression;
         char* j = expression;
         while(*j != 0)
@@ -71,8 +69,9 @@ int main(int argc, char **argv)
             if(!isspace(*i)) i++;
         }
         *i = 0; 
-    
-        calculate(expression);
+        
+        calculate(expression, argc > 1 ? 1 : 0);
+        memset(expression, 0, BUFSIZ);
     }
 
 }
